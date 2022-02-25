@@ -1,0 +1,23 @@
+{
+	"name": "DestinationDataset_44r",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorageRaw",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "curated"
+			},
+			"columnDelimiter": ",",
+			"compressionCodec": "gzip",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
