@@ -6,13 +6,25 @@ trigger:
 
 stages:
 - stage: deploy_to_dev
-  displayName: 'Deploy to DEV'  # In DEV, excludes publishing to ADF as this is a manual publish step
+  displayName: 'Deploy to DEV'
   variables:
   - group: dev-bv-keyvault
   condition: eq(variables['Build.SourceBranchName'], 'main')
+  jobs:
+  - job: deploydev
+    steps:
+      - task: CmdLine@2
+        inputs:
+          script: echo Write your commands here
 
 - stage: deploy_to_prod
   displayName: 'Deploy to Prod'
   variables:
   - group: prd-bv-keyvault
   condition: eq(variables['Build.SourceBranchName'], 'adf_publish')
+  jobs:
+  - job: deployprod
+    steps:
+      - task: CmdLine@2
+        inputs:
+          script: echo Write your commands here
