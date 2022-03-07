@@ -9,6 +9,7 @@ stages:
   displayName: 'Deploy to DEV'
   variables:
   - group: dev-bv-keyvault
+  - group: dev-bv-environment
   condition: eq(variables['Build.SourceBranchName'], 'main')
   jobs:
   - job: deploydev
@@ -21,6 +22,7 @@ stages:
   displayName: 'Deploy to Prod'
   variables:
   - group: prd-bv-keyvault
+  - group: prod-bv-environment
   condition: eq(variables['Build.SourceBranchName'], 'adf_publish')
   jobs:
   - job: deployprod
