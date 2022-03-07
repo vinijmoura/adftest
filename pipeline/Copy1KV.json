@@ -56,8 +56,8 @@
 						"mappings": [
 							{
 								"source": {
-									"type": "String",
-									"ordinal": 1
+									"name": "Region",
+									"type": "String"
 								},
 								"sink": {
 									"type": "String",
@@ -66,8 +66,8 @@
 							},
 							{
 								"source": {
-									"type": "String",
-									"ordinal": 2
+									"name": "Country",
+									"type": "String"
 								},
 								"sink": {
 									"type": "String",
@@ -76,8 +76,8 @@
 							},
 							{
 								"source": {
-									"type": "String",
-									"ordinal": 3
+									"name": "Item Type",
+									"type": "String"
 								},
 								"sink": {
 									"type": "String",
@@ -86,8 +86,8 @@
 							},
 							{
 								"source": {
-									"type": "String",
-									"ordinal": 4
+									"name": "Sales Channel",
+									"type": "String"
 								},
 								"sink": {
 									"type": "String",
@@ -96,8 +96,8 @@
 							},
 							{
 								"source": {
-									"type": "String",
-									"ordinal": 5
+									"name": "Order Priority",
+									"type": "String"
 								},
 								"sink": {
 									"type": "String",
@@ -106,8 +106,8 @@
 							},
 							{
 								"source": {
-									"type": "String",
-									"ordinal": 6
+									"name": "Order Date",
+									"type": "String"
 								},
 								"sink": {
 									"type": "String",
@@ -116,8 +116,8 @@
 							},
 							{
 								"source": {
-									"type": "String",
-									"ordinal": 7
+									"name": "Order ID",
+									"type": "String"
 								},
 								"sink": {
 									"type": "String",
@@ -126,8 +126,8 @@
 							},
 							{
 								"source": {
-									"type": "String",
-									"ordinal": 8
+									"name": "Ship Date",
+									"type": "String"
 								},
 								"sink": {
 									"type": "String",
@@ -136,8 +136,8 @@
 							},
 							{
 								"source": {
-									"type": "String",
-									"ordinal": 9
+									"name": "Units Sold",
+									"type": "String"
 								},
 								"sink": {
 									"type": "String",
@@ -146,8 +146,8 @@
 							},
 							{
 								"source": {
-									"type": "String",
-									"ordinal": 10
+									"name": "Unit Price",
+									"type": "String"
 								},
 								"sink": {
 									"type": "String",
@@ -156,8 +156,8 @@
 							},
 							{
 								"source": {
-									"type": "String",
-									"ordinal": 11
+									"name": "Unit Cost",
+									"type": "String"
 								},
 								"sink": {
 									"type": "String",
@@ -166,8 +166,8 @@
 							},
 							{
 								"source": {
-									"type": "String",
-									"ordinal": 12
+									"name": "Total Revenue",
+									"type": "String"
 								},
 								"sink": {
 									"type": "String",
@@ -176,8 +176,8 @@
 							},
 							{
 								"source": {
-									"type": "String",
-									"ordinal": 13
+									"name": "Total Cost",
+									"type": "String"
 								},
 								"sink": {
 									"type": "String",
@@ -186,8 +186,8 @@
 							},
 							{
 								"source": {
-									"type": "String",
-									"ordinal": 14
+									"name": "Total Profit",
+									"type": "String"
 								},
 								"sink": {
 									"type": "String",
