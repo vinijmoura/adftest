@@ -5,9 +5,6 @@
 		"factoryName": {
 			"value": "adf-test-bv-cicd"
 		},
-		"AzureBlobStorageRaw_connectionString": {
-			"value": ""
-		},
 		"AzureBlobStorageKV_properties_typeProperties_connectionString_secretName": {
 			"value": "storage1"
 		},

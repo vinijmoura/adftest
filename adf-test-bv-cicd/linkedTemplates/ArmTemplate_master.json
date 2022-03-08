@@ -7,10 +7,6 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "adf-test-bv-cicd"
 		},
-		"AzureBlobStorageRaw_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorageRaw'"
-		},
 		"AzureBlobStorageKV_properties_typeProperties_connectionString_secretName": {
 			"type": "string",
 			"defaultValue": "storage1"
@@ -45,9 +41,6 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
-					},
-					"AzureBlobStorageRaw_connectionString": {
-						"value": "[parameters('AzureBlobStorageRaw_connectionString')]"
 					},
 					"AzureKeyVault_properties_typeProperties_baseUrl": {
 						"value": "[parameters('AzureKeyVault_properties_typeProperties_baseUrl')]"
