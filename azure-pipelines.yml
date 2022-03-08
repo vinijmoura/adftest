@@ -29,7 +29,7 @@ stages:
   - group: prd-bv-keyvault
   - group: prod-bv-environment
   jobs:
-  - template: templates/jobs/deploy-adf-job.yml
+  - template: deploy-adf-job.yml@templates
     parameters:
       environmentName: 'PROD'
       serviceConnection: 'sp-pod-br-dataops'
