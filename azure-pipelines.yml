@@ -4,6 +4,12 @@ trigger:
 
 # $(storage1)
 
+resources:
+  repositories:
+    - repository: dataops_adfpublish
+      type: git
+      name: partnerpodbr/dataops
+
 stages:
 - stage: deploy_to_dev
   displayName: 'Deploy to DEV'
@@ -12,12 +18,10 @@ stages:
   - group: dev-bv-environment
   condition: eq(variables['Build.SourceBranchName'], 'main')
   jobs:
-  - job: deploydev
-    steps:
-      - task: CmdLine@2
-        inputs:
-          script: echo Write your commands here
-
+  - template: templates/jobs/deploy-adf-job.yml
+    parameters:
+      environmentName: 'DEV'
+      serviceConnection: 'sp-pod-br-dataops'
 - stage: deploy_to_prod
   displayName: 'Deploy to Prod'
   variables:
@@ -25,8 +29,7 @@ stages:
   - group: prod-bv-environment
   condition: eq(variables['Build.SourceBranchName'], 'adf_publish')
   jobs:
-  - job: deployprod
-    steps:
-      - task: CmdLine@2
-        inputs:
-          script: echo Write your commands here
+  - template: templates/jobs/deploy-adf-job.yml
+    parameters:
+      environmentName: 'PROD'
+      serviceConnection: 'sp-pod-br-dataops'
