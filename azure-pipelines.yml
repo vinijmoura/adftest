@@ -11,6 +11,13 @@ resources:
     - repository: templatesdataops
       type: git
       name: partnerpodbr/templatesdataops
+      
+  pipelines:
+    - pipeline: ciartifacts
+      source: ciartifacts
+      trigger: 
+        branches:
+        - main      
 
 stages:
 - stage: deploy_to_dev
