@@ -8,7 +8,7 @@ resources:
       name: partnerpodbr/adftestbv
       ref: adf_publish
     
-    - repository: templates
+    - repository: templatesdataops
       type: git
       name: partnerpodbr/templatesdataops
 
@@ -19,7 +19,7 @@ stages:
   - group: dev-bv-keyvault
   - group: dev-bv-environment
   jobs:
-  - template: deploy-adf-job.yml@templates
+  - template: deploy-adf-job.yml@templatesdataops
     parameters:
       environmentName: 'DEV'
       serviceConnection: 'sp-pod-br-dataops'
@@ -29,7 +29,7 @@ stages:
   - group: prd-bv-keyvault
   - group: prod-bv-environment
   jobs:
-  - template: deploy-adf-job.yml@templates
+  - template: deploy-adf-job.yml@templatesdataops
     parameters:
       environmentName: 'PROD'
       serviceConnection: 'sp-pod-br-dataops'
