@@ -7,6 +7,10 @@ resources:
       type: git
       name: partnerpodbr/adftestbv
       ref: adf_publish
+    
+    - repository: templates
+      type: git
+      name: partnerpodbr/templatesdataops
 
 stages:
 - stage: deploy_to_dev
@@ -15,7 +19,7 @@ stages:
   - group: dev-bv-keyvault
   - group: dev-bv-environment
   jobs:
-  - template: templates/jobs/deploy-adf-job.yml
+  - template: deploy-adf-job.yml@templates
     parameters:
       environmentName: 'DEV'
       serviceConnection: 'sp-pod-br-dataops'
