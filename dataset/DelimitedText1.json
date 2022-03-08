@@ -1,6 +1,10 @@
 {
 	"name": "DelimitedText1",
 	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorageKV",
+			"type": "LinkedServiceReference"
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
