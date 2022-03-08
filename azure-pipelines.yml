@@ -32,7 +32,6 @@ stages:
               serviceConnection: 'sp-pod-br-dataops'
 - stage: deploy_to_prod
   displayName: 'Deploy to Prod'
-  dependsOn: deploy_to_dev
   variables:
   - group: prd-bv-keyvault
   - group: prod-bv-environment
