@@ -11,6 +11,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorageRaw'"
 		},
+		"AzureBlobStorageKV_properties_typeProperties_connectionString_secretName": {
+			"type": "string",
+			"defaultValue": "storage1"
+		},
+		"AzureKeyVault_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://dev-bv-keyvault.vault.azure.net/"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -40,6 +48,12 @@
 					},
 					"AzureBlobStorageRaw_connectionString": {
 						"value": "[parameters('AzureBlobStorageRaw_connectionString')]"
+					},
+					"AzureKeyVault_properties_typeProperties_baseUrl": {
+						"value": "[parameters('AzureKeyVault_properties_typeProperties_baseUrl')]"
+					},
+					"AzureBlobStorageKV_properties_typeProperties_connectionString_secretName": {
+						"value": "[parameters('AzureBlobStorageKV_properties_typeProperties_connectionString_secretName')]"
 					}
 				}
 			},

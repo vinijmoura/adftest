@@ -7,6 +7,12 @@
 		},
 		"AzureBlobStorageRaw_connectionString": {
 			"value": ""
+		},
+		"AzureBlobStorageKV_properties_typeProperties_connectionString_secretName": {
+			"value": "storage1"
+		},
+		"AzureKeyVault_properties_typeProperties_baseUrl": {
+			"value": "https://dev-bv-keyvault.vault.azure.net/"
 		}
 	}
 }

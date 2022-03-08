@@ -10,6 +10,14 @@
 		"AzureBlobStorageRaw_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorageRaw'"
+		},
+		"AzureKeyVault_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://dev-bv-keyvault.vault.azure.net/"
+		},
+		"AzureBlobStorageKV_properties_typeProperties_connectionString_secretName": {
+			"type": "string",
+			"defaultValue": "storage1"
 		}
 	},
 	"variables": {
@@ -30,39 +38,47 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DestinationDataset_44r')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
+			"name": "[concat(parameters('factoryName'), '/AzureKeyVault')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureBlobStorageRaw",
-					"type": "LinkedServiceReference"
-				},
 				"annotations": [],
-				"type": "DelimitedText",
+				"type": "AzureKeyVault",
 				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"container": "curated"
-					},
-					"columnDelimiter": ",",
-					"compressionCodec": "gzip",
-					"escapeChar": "\\",
-					"quoteChar": "\""
-				},
-				"schema": []
+					"baseUrl": "[parameters('AzureKeyVault_properties_typeProperties_baseUrl')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorageKV')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "AzureKeyVault",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "[parameters('AzureBlobStorageKV_properties_typeProperties_connectionString_secretName')]"
+					}
+				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageRaw')]"
+				"[concat(variables('factoryId'), '/linkedServices/AzureKeyVault')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/SourceDataset_44r')]",
+			"name": "[concat(parameters('factoryName'), '/DelimitedText1')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "AzureBlobStorageRaw",
+					"referenceName": "AzureBlobStorageKV",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
@@ -79,69 +95,81 @@
 				},
 				"schema": [
 					{
-						"name": "Region",
 						"type": "String"
 					},
 					{
-						"name": "Country",
 						"type": "String"
 					},
 					{
-						"name": "Item Type",
 						"type": "String"
 					},
 					{
-						"name": "Sales Channel",
 						"type": "String"
 					},
 					{
-						"name": "Order Priority",
 						"type": "String"
 					},
 					{
-						"name": "Order Date",
 						"type": "String"
 					},
 					{
-						"name": "Order ID",
 						"type": "String"
 					},
 					{
-						"name": "Ship Date",
 						"type": "String"
 					},
 					{
-						"name": "Units Sold",
 						"type": "String"
 					},
 					{
-						"name": "Unit Price",
 						"type": "String"
 					},
 					{
-						"name": "Unit Cost",
 						"type": "String"
 					},
 					{
-						"name": "Total Revenue",
 						"type": "String"
 					},
 					{
-						"name": "Total Cost",
 						"type": "String"
 					},
 					{
-						"name": "Total Profit",
 						"type": "String"
 					}
 				]
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageRaw')]"
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageKV')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/CopyPipeline_44r')]",
+			"name": "[concat(parameters('factoryName'), '/DelimitedText2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorageKV",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "curated"
+					},
+					"columnDelimiter": ";",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageKV')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Copy1KV')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -194,18 +222,163 @@
 								}
 							},
 							"enableStaging": false,
-							"validateDataConsistency": false
+							"validateDataConsistency": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Region",
+											"type": "String"
+										},
+										"sink": {
+											"type": "String",
+											"ordinal": 1
+										}
+									},
+									{
+										"source": {
+											"name": "Country",
+											"type": "String"
+										},
+										"sink": {
+											"type": "String",
+											"ordinal": 2
+										}
+									},
+									{
+										"source": {
+											"name": "Item Type",
+											"type": "String"
+										},
+										"sink": {
+											"type": "String",
+											"ordinal": 3
+										}
+									},
+									{
+										"source": {
+											"name": "Sales Channel",
+											"type": "String"
+										},
+										"sink": {
+											"type": "String",
+											"ordinal": 4
+										}
+									},
+									{
+										"source": {
+											"name": "Order Priority",
+											"type": "String"
+										},
+										"sink": {
+											"type": "String",
+											"ordinal": 5
+										}
+									},
+									{
+										"source": {
+											"name": "Order Date",
+											"type": "String"
+										},
+										"sink": {
+											"type": "String",
+											"ordinal": 6
+										}
+									},
+									{
+										"source": {
+											"name": "Order ID",
+											"type": "String"
+										},
+										"sink": {
+											"type": "String",
+											"ordinal": 7
+										}
+									},
+									{
+										"source": {
+											"name": "Ship Date",
+											"type": "String"
+										},
+										"sink": {
+											"type": "String",
+											"ordinal": 8
+										}
+									},
+									{
+										"source": {
+											"name": "Units Sold",
+											"type": "String"
+										},
+										"sink": {
+											"type": "String",
+											"ordinal": 9
+										}
+									},
+									{
+										"source": {
+											"name": "Unit Price",
+											"type": "String"
+										},
+										"sink": {
+											"type": "String",
+											"ordinal": 10
+										}
+									},
+									{
+										"source": {
+											"name": "Unit Cost",
+											"type": "String"
+										},
+										"sink": {
+											"type": "String",
+											"ordinal": 11
+										}
+									},
+									{
+										"source": {
+											"name": "Total Revenue",
+											"type": "String"
+										},
+										"sink": {
+											"type": "String",
+											"ordinal": 12
+										}
+									},
+									{
+										"source": {
+											"name": "Total Cost",
+											"type": "String"
+										},
+										"sink": {
+											"type": "String",
+											"ordinal": 13
+										}
+									},
+									{
+										"source": {
+											"name": "Total Profit",
+											"type": "String"
+										},
+										"sink": {
+											"type": "String",
+											"ordinal": 14
+										}
+									}
+								]
+							}
 						},
 						"inputs": [
 							{
-								"referenceName": "SourceDataset_44r",
+								"referenceName": "DelimitedText1",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "DestinationDataset_44r",
+								"referenceName": "DelimitedText2",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -220,8 +393,8 @@
 				"lastPublishTime": "2022-02-25T12:27:22Z"
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/SourceDataset_44r')]",
-				"[concat(variables('factoryId'), '/datasets/DestinationDataset_44r')]"
+				"[concat(variables('factoryId'), '/datasets/DelimitedText1')]",
+				"[concat(variables('factoryId'), '/datasets/DelimitedText2')]"
 			]
 		}
 	]
