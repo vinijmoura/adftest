@@ -7,7 +7,8 @@ resources:
   repositories:
     - repository: dataops_adfpublish
       type: git
-      name: partnerpodbr/dataops
+      name: partnerpodbr/adftestbv
+      ref: adf_publish
 
 stages:
 - stage: deploy_to_dev
