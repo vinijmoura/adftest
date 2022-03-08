@@ -1,8 +1,6 @@
 trigger: none
 pr: none
 
-# $(storage1)
-
 resources:
   repositories:
     - repository: dataops_adfpublish
