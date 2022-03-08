@@ -19,10 +19,10 @@ stages:
   - group: dev-bv-environment
   jobs:
   - deployment: deploy_adf
-    displayName: 'Deploy to Azure Data Factory'
+    displayName: 'Deploy to Azure Data Factory DEV'
+    environment: DEV
     pool:
       vmImage: 'windows-2019'
-    environment: DEV
     strategy:
       runOnce:
         deploy:
@@ -32,15 +32,16 @@ stages:
               serviceConnection: 'sp-pod-br-dataops'
 - stage: deploy_to_prod
   displayName: 'Deploy to Prod'
+  dependsOn: deploy_to_dev
   variables:
   - group: prd-bv-keyvault
   - group: prod-bv-environment
   jobs:
   - deployment: deploy_adf
-    displayName: 'Deploy to Azure Data Factory'
+    displayName: 'Deploy to Azure Data Factory PROD'
+    environment: PROD
     pool:
       vmImage: 'windows-2019'
-    environment: PROD
     strategy:
       runOnce:
         deploy:
