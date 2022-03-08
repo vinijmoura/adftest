@@ -10,8 +10,7 @@
 					"referenceName": "AzureKeyVault",
 					"type": "LinkedServiceReference"
 				},
-				"secretName": "storage1",
-				"secretVersion": "02e2c65504744bef95920ecb7717b77c"
+				"secretName": "storage1"
 			}
 		}
 	}
