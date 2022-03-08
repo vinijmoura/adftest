@@ -1,0 +1,13 @@
+trigger:
+  branches:
+    include:
+    - main
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.SourcesDirectory)/adf/_scripts/deploymentadf.ps1'
+      ArtifactName: 'adf_scripts'
+    displayName: 'Publish ADF Scripts'
