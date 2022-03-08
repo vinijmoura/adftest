@@ -608,6 +608,235 @@
 				"[concat(variables('factoryId'), '/datasets/DelimitedText1')]",
 				"[concat(variables('factoryId'), '/datasets/DelimitedText2')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Copy1KV_copy2')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy_44r",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [
+							{
+								"name": "Source",
+								"value": "raw//"
+							},
+							{
+								"name": "Destination",
+								"value": "curated//"
+							}
+						],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"wildcardFileName": "*",
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings",
+									"skipLineCount": 0
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"maxRowsPerFile": 1000,
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"validateDataConsistency": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Region",
+											"type": "String"
+										},
+										"sink": {
+											"type": "String",
+											"ordinal": 1
+										}
+									},
+									{
+										"source": {
+											"name": "Country",
+											"type": "String"
+										},
+										"sink": {
+											"type": "String",
+											"ordinal": 2
+										}
+									},
+									{
+										"source": {
+											"name": "Item Type",
+											"type": "String"
+										},
+										"sink": {
+											"type": "String",
+											"ordinal": 3
+										}
+									},
+									{
+										"source": {
+											"name": "Sales Channel",
+											"type": "String"
+										},
+										"sink": {
+											"type": "String",
+											"ordinal": 4
+										}
+									},
+									{
+										"source": {
+											"name": "Order Priority",
+											"type": "String"
+										},
+										"sink": {
+											"type": "String",
+											"ordinal": 5
+										}
+									},
+									{
+										"source": {
+											"name": "Order Date",
+											"type": "String"
+										},
+										"sink": {
+											"type": "String",
+											"ordinal": 6
+										}
+									},
+									{
+										"source": {
+											"name": "Order ID",
+											"type": "String"
+										},
+										"sink": {
+											"type": "String",
+											"ordinal": 7
+										}
+									},
+									{
+										"source": {
+											"name": "Ship Date",
+											"type": "String"
+										},
+										"sink": {
+											"type": "String",
+											"ordinal": 8
+										}
+									},
+									{
+										"source": {
+											"name": "Units Sold",
+											"type": "String"
+										},
+										"sink": {
+											"type": "String",
+											"ordinal": 9
+										}
+									},
+									{
+										"source": {
+											"name": "Unit Price",
+											"type": "String"
+										},
+										"sink": {
+											"type": "String",
+											"ordinal": 10
+										}
+									},
+									{
+										"source": {
+											"name": "Unit Cost",
+											"type": "String"
+										},
+										"sink": {
+											"type": "String",
+											"ordinal": 11
+										}
+									},
+									{
+										"source": {
+											"name": "Total Revenue",
+											"type": "String"
+										},
+										"sink": {
+											"type": "String",
+											"ordinal": 12
+										}
+									},
+									{
+										"source": {
+											"name": "Total Cost",
+											"type": "String"
+										},
+										"sink": {
+											"type": "String",
+											"ordinal": 13
+										}
+									},
+									{
+										"source": {
+											"name": "Total Profit",
+											"type": "String"
+										},
+										"sink": {
+											"type": "String",
+											"ordinal": 14
+										}
+									}
+								]
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DelimitedText1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DelimitedText2",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-02-25T12:27:22Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DelimitedText1')]",
+				"[concat(variables('factoryId'), '/datasets/DelimitedText2')]"
+			]
 		}
 	]
 }
