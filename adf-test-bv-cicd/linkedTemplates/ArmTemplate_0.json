@@ -657,9 +657,8 @@
 								},
 								"formatSettings": {
 									"type": "DelimitedTextWriteSettings",
-									"maxRowsPerFile": 1000,
 									"quoteAllText": true,
-									"fileExtension": ".txt"
+									"fileExtension": ".csv"
 								}
 							},
 							"enableStaging": false,
