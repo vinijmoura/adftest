@@ -7,7 +7,6 @@ resources:
       type: git
       name: partnerpodbr/adftestbv
       ref: adf_publish
-    
     - repository: templatesdataops
       type: git
       name: partnerpodbr/templatesdataops
@@ -19,17 +18,33 @@ stages:
   - group: dev-bv-keyvault
   - group: dev-bv-environment
   jobs:
-  - template: deploy-adf-job.yml@templatesdataops
-    parameters:
-      environmentName: 'DEV'
-      serviceConnection: 'sp-pod-br-dataops'
+  - deployment: deploy_adf
+    displayName: 'Deploy to Azure Data Factory'
+    pool:
+      vmImage: 'windows-2019'
+    environment: DEV
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: deploy-adf-job.yml@templatesdataops
+            parameters:
+              serviceConnection: 'sp-pod-br-dataops'
 - stage: deploy_to_prod
   displayName: 'Deploy to Prod'
   variables:
   - group: prd-bv-keyvault
   - group: prod-bv-environment
   jobs:
-  - template: deploy-adf-job.yml@templatesdataops
-    parameters:
-      environmentName: 'PROD'
-      serviceConnection: 'sp-pod-br-dataops'
+  - deployment: deploy_adf
+    displayName: 'Deploy to Azure Data Factory'
+    pool:
+      vmImage: 'windows-2019'
+    environment: DEV
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: deploy-adf-job.yml@templatesdataops
+            parameters:
+              serviceConnection: 'sp-pod-br-dataops'
