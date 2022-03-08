@@ -47,8 +47,7 @@
 							"referenceName": "AzureKeyVault",
 							"type": "LinkedServiceReference"
 						},
-						"secretName": "[parameters('AzureBlobStorageKV_properties_typeProperties_connectionString_secretName')]",
-						"secretVersion": "02e2c65504744bef95920ecb7717b77c"
+						"secretName": "[parameters('AzureBlobStorageKV_properties_typeProperties_connectionString_secretName')]"
 					}
 				}
 			},
