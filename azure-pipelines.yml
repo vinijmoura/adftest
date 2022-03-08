@@ -16,7 +16,6 @@ stages:
   variables:
   - group: dev-bv-keyvault
   - group: dev-bv-environment
-#  condition: eq(variables['Build.SourceBranchName'], 'main')
   jobs:
   - template: templates/jobs/deploy-adf-job.yml
     parameters:
@@ -27,7 +26,6 @@ stages:
   variables:
   - group: prd-bv-keyvault
   - group: prod-bv-environment
-#  condition: eq(variables['Build.SourceBranchName'], 'adf_publish')
   jobs:
   - template: templates/jobs/deploy-adf-job.yml
     parameters:
